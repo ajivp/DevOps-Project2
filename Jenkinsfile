@@ -51,16 +51,23 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                sh '''
-                    sed -i "s|image:.*|image: $DOCKER_IMAGE:$IMAGE_TAG|" k8s/deployment.yaml
-                    kubectl apply -f k8s/deployment.yaml
-                    kubectl rollout status deployment/devops-project2
-                '''
-            }
-        }
-    }
+	stage('Deploy to Kubernetes') {
+	    steps {
+		sh '''
+		    echo "=== Workspace ==="
+		    pwd
+
+		    echo "=== Files ==="
+		    ls -la
+
+		    echo "=== Kubernetes directory ==="
+		    ls -la k8s || true
+
+		    echo "=== Git status ==="
+		    git status
+		'''
+	    }
+	}
 
     post {
         success {
