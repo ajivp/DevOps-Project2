@@ -4,7 +4,7 @@ const app = express();
 const PORT = 3000;
 
 app.get("/", (req, res) => {
-    res.send("DevOps Project 2 - Node.js Application is Running!");
+    res.send("DevOps Project 2 - Node.js Application v2.0 is Running!! HURRAY");
 });
 
 app.get("/health", (req, res) => {

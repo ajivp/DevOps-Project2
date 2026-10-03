@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-project2-canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-project2
+      version: canary
+  template:
+    metadata:
+      labels:
+        app: devops-project2
+        version: canary
+    spec:
+      containers:
+        - name: devops-project2
+          image: avp18/devops-project2:3.0
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
